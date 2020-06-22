@@ -3,7 +3,7 @@ HOST = ""
 PORT = 0
 json_file = open('address.json')
 json_data = json.load(json_file)
-HOST = json_data["HOST"]
+HOST = json_data["HOST_DNS"]
 PORT = json_data["PORT"]
 json_file.close()
 # 소켓 객체를 생성합니다. 
