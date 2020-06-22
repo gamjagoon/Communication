@@ -1,8 +1,13 @@
-import socket
+import socket, json
 
-HOST = '192.168.0.12'
-PORT = 30200
+HOST = ""
+PORT = 0
 
+json_file = open('address.json')
+json_data = json.load(json_file)
+HOST = json_data["HOST"]
+PORT = json_data["PORT"]
+json_file.close()
 # 소켓 객체를 생성합니다. 
 # 주소 체계(address family)로 IPv4, 소켓 타입으로 TCP 사용합니다.  
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
