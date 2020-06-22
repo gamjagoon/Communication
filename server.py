@@ -1,6 +1,6 @@
 import socket
 
-HOST = '127.0.0.1'
+HOST = '192.168.0.12'
 PORT = 30200
 
 # 소켓 객체를 생성합니다. 
@@ -9,6 +9,7 @@ server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 server_socket.bind((HOST, PORT))
 server_socket.listen()
+print("start server!!")
 client_socket, addr = server_socket.accept()
 print('Connected by', addr)
 
