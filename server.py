@@ -20,7 +20,7 @@ while True:
     if not data or data == "exit":
         break
     print('Received from', addr, data.decode())
-    client_socket.sendall("ok")
+    client_socket.sendall("ok".encode())
 # 소켓을 닫습니다.
 client_socket.close()
 server_socket.close()

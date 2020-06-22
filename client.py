@@ -1,5 +1,4 @@
 import socket
-import sys
 HOST = 'algora.iptime.org'  
 PORT = 30200
 
@@ -11,7 +10,7 @@ client_socket.connect((HOST, PORT))
 print("start client")
 
 while True:
-    data = sys.stdin.input()
+    data = input()
     client_socket.sendall(data.encode())
     # 데이터가 없거나 exit 면 종료
     if not data or data == "exit":
