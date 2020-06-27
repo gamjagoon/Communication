@@ -1,7 +1,0 @@
-dbname : golang_01
-
-  table
-    create table test_table (id INT,juso NVARCHAR(64),empty CHAR(1),start DATETIME, end DATETIME);
-
-  insert :
-     INSERT INTO test_table(id,juso,empty,start) values (1,"부산광역시 남구 용소로 32-31",'N',now());

@@ -1,0 +1,12 @@
+권한 grant all privileges on 디비명.* to 이름@'%' identified by ‘비밀번호';
+dbname : park (create database park;)
+
+  park_id: create table park_id ( x DOUBLE(9,6), y DOUBLE(9,6) ,juso NVARCHAR(64),total INT, empty INT);
+    insert :
+      INSERT INTO park_id(x,y,juso,total,empty) values (37.575929,126.976849,"서울특별시 광화문 환용주차장",100,42);
+    update :
+      UPDATE park_id SET empty = 43 WHERE x = 37.575929;
+
+
+test_park
+광화문 x = 37.575929 y = 126.976849
