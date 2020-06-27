@@ -32,6 +32,7 @@ type Park struct {
 
 // Point type of x, y
 type Point struct{
+	TYPE int `json:"type"`
 	X float64 `json:"x"`
 	Y float64 `json:"y"`
 }
@@ -97,12 +98,16 @@ func ConnHandler(conn net.Conn) {
 			err := json.Unmarshal(recv,&data)
 			errHandler(err)
 			fmt.Println("receve = ",data)
-			onepark := Park{}
-			err = db.QueryRow("select juso,total,empty from parkID where x = $1 and y = $2",data.X,data.Y).Scan(&onepark.Name,&onepark.Total,&onepark.Empty)
-			errHandler(err)
-			sendbyte, _ := json.Marshal(onepark)
-			conn.Write(sendbyte)
-			fmt.Printf("%s total = %d, empty = %d",onepark.Name,onepark.Total,onepark.Empty)
+			if data.TYPE == 1 {
+				onepark := Park{}
+				err = db.QueryRow("select juso,total,empty from parkID where x = $1 and y = $2",data.X,data.Y).Scan(&onepark.Name,&onepark.Total,&onepark.Empty)
+				errHandler(err)
+				sendbyte, _ := json.Marshal(onepark)
+				conn.Write(sendbyte)
+				fmt.Println(sendbyte)
+			} else{
+				fmt.Println("type 2")
+			}
 		}
 	}
 }
