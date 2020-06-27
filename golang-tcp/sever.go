@@ -30,6 +30,12 @@ type Park struct {
 	Empty int `json:"empty"`
 }
 
+// Point type of x, y
+type Point struct{
+	X float64 `json:"x"`
+	Y float64 `json:"y"`
+}
+
 
 func errHandler(err error) {
 	if err != nil {
@@ -87,10 +93,12 @@ func ConnHandler(conn net.Conn) {
 		}
 		if 0 < n {
 			recv := recvBuf[:n]
-			data := string(recv)
+			var data Point
+			err := json.Unmarshal(recv,&data)
+			errHandler(err)
 			fmt.Println("receve = ",data)
 			onepark := Park{}
-			err = db.QueryRow("select juso,total,empty from parkID where x = $1 and y = $2",37.575929,126.976849).Scan(&onepark.Name,&onepark.Total,&onepark.Empty)
+			err = db.QueryRow("select juso,total,empty from parkID where x = $1 and y = $2",data.X,data.Y).Scan(&onepark.Name,&onepark.Total,&onepark.Empty)
 			errHandler(err)
 			sendbyte, _ := json.Marshal(onepark)
 			conn.Write(sendbyte)
