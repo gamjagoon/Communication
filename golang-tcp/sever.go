@@ -22,20 +22,21 @@ type MssqlConnect struct {
 		Port    string    `json:"port"`
 	} `json:"host"`
 }
+// Point type of x, y
+type Point struct{
+	X float64 `json:"x"`
+	Y float64 `json:"y"`
+}
 
 // Park datastruct
 type Park struct {
 	Name string `json:"name"`
 	Total int `json:"total"`
 	Empty int `json:"empty"`
-}
-
-// Point type of x, y
-type Point struct{
-	TYPE int `json:"type"`
 	X float64 `json:"x"`
 	Y float64 `json:"y"`
 }
+
 
 
 func errHandler(err error) {
@@ -81,6 +82,7 @@ func main() {
 
 // ConnHandler input db receved data
 func ConnHandler(conn net.Conn) {
+	fmt.Println("wait listening ")
 	recvBuf := make([]byte, 256)
 	for {
 		n, err := conn.Read(recvBuf)
@@ -98,16 +100,12 @@ func ConnHandler(conn net.Conn) {
 			err := json.Unmarshal(recv,&data)
 			errHandler(err)
 			fmt.Println("receve = ",data)
-			if data.TYPE == 1 {
-				onepark := Park{}
-				err = db.QueryRow("select juso,total,empty from parkID where x = $1 and y = $2",data.X,data.Y).Scan(&onepark.Name,&onepark.Total,&onepark.Empty)
-				errHandler(err)
-				sendbyte, _ := json.Marshal(onepark)
-				conn.Write(sendbyte)
-				fmt.Println(sendbyte)
-			} else{
-				fmt.Println("type 2")
-			}
+			onepark := Park{}
+			err = db.QueryRow("select juso,total,empty from parkID where x = $1 and y = $2",data.X,data.Y).Scan(&onepark.Name,&onepark.Total,&onepark.Empty)
+			errHandler(err)
+			sendbyte, _ := json.Marshal(onepark)
+			conn.Write(sendbyte)
+			fmt.Println(sendbyte)
 		}
 	}
 }

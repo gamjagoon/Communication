@@ -10,3 +10,5 @@ dbname : park (create database park;)
 
 test_park
 광화문 x = 37.575929 y = 126.976849
+
+37.571414, 126.977112
