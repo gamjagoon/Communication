@@ -54,7 +54,7 @@ func main() {
 	dbname := config.User.ID+":"+config.User.Pwd+"@/"+"park"
 	db, err = sql.Open("mysql",dbname) 
 	errHandler(err)
-	rows,err := db.Query("select * from ?","pard_id")
+	rows,err := db.Query("select * from $1","park_id")
 	errHandler(err)
 	for rows.Next() {
 		col, err := rows.Columns()
