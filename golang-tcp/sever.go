@@ -1,5 +1,8 @@
 package main
 
+/* TODO: 1.calac 위도와 경도 계산 함수 만들기 
+*/
+
 import (
 	"database/sql"
 	"encoding/json"
