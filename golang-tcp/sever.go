@@ -54,14 +54,10 @@ func main() {
 	dbname := config.User.ID+":"+config.User.Pwd+"@/"+"park"
 	db, err = sql.Open("mysql",dbname) 
 	errHandler(err)
-	rows,err := db.Query("select * from $1","parkID")
+	var name string
+	err = db.QueryRow("select juso from parkID limit 1").Scan(&name)
 	errHandler(err)
-	for rows.Next() {
-		col, err := rows.Columns()
-		errHandler(err)
-		fmt.Println(col)
-	}
-	rows.Close()
+	fmt.Println(name)
 
 	defer db.Close()
 
