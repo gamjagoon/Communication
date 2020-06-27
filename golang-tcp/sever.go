@@ -54,7 +54,7 @@ func main() {
 	dbname := config.User.ID+":"+config.User.Pwd+"@/"+"park"
 	db, err = sql.Open("mysql",dbname) 
 	errHandler(err)
-	rows,err := db.Query("select * from $1","park_id")
+	rows,err := db.Query("select * from $1","parkID")
 	errHandler(err)
 	for rows.Next() {
 		col, err := rows.Columns()
@@ -94,7 +94,7 @@ func ConnHandler(conn net.Conn) {
 			data := string(recv)
 			fmt.Println("receve = ",data)
 			onepark := Park{}
-			err = db.QueryRow("select juso,total,empty from park_id where x = $1 and y = $2",37.575929,126.976849).Scan(&onepark.Name,&onepark.Total,&onepark.Empty)
+			err = db.QueryRow("select juso,total,empty from parkID where x = $1 and y = $2",37.575929,126.976849).Scan(&onepark.Name,&onepark.Total,&onepark.Empty)
 			errHandler(err)
 			sendbyte, _ := json.Marshal(onepark)
 			conn.Write(sendbyte)
