@@ -71,18 +71,19 @@ func main() {
 
 	// loop server
 	for {
+		fmt.Println("wait listening ")
 		conn, err := l.Accept()
 		if nil != err {
 			log.Printf("fail to accept; err : %v", err)
 			continue
 		}
+		fmt.Println("Connetcted ",conn.RemoteAddr())
 		go ConnHandler(conn)
 	}
 }
 
 // ConnHandler input db receved data
 func ConnHandler(conn net.Conn) {
-	fmt.Println("wait listening ")
 	recvBuf := make([]byte, 256)
 	for {
 		n, err := conn.Read(recvBuf)
