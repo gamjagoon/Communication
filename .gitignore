@@ -32,6 +32,7 @@ doc/api/
 *.dll
 *.so
 *.dylib
+.vscode
 
 # Test binary, built with `go test -c`
 *.test
